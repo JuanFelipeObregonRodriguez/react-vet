@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormError from '../utils/FormError';
 
-const Form = ({ pacientes, setPacientes }) => {
+const Form = ({
+  pacientes, setPacientes, paciente, setPaciente,
+}) => {
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietarios] = useState('');
   const [email, setEmail] = useState('');
@@ -16,6 +18,21 @@ const Form = ({ pacientes, setPacientes }) => {
   //   setNombre(e.target.value);
   // };
 
+  useEffect(() => {
+    if (Object.keys(paciente).length > 0) {
+      setNombre(paciente.nombre);
+      setEmail(paciente.email);
+      setPropietarios(paciente.propietario);
+      setAlta(paciente.alta);
+      setSintomas(paciente.sintomas);
+    }
+  }, [paciente]);
+  const generateId = () => {
+    const randomId = Math.random().toString().substring(2);
+    const dateId = Date.now().toString();
+
+    return randomId + dateId;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -35,11 +52,24 @@ const Form = ({ pacientes, setPacientes }) => {
       email,
       alta,
       sintomas,
+
     };
 
     console.log(pacientesObjeto);
 
-    setPacientes([...pacientes, pacientesObjeto]);
+    if (paciente.id) {
+      pacientesObjeto.id = paciente.id;
+
+      // eslint-disable-next-line max-len
+      const editarPaciente = pacientes.map((pacienteState) => (pacienteState.id === paciente.id ? pacientesObjeto : pacienteState));
+
+      setPacientes(editarPaciente);
+      setPaciente('');
+    } else {
+      pacientesObjeto.id = generateId();
+
+      setPacientes([...pacientes, pacientesObjeto]);
+    }
 
     setNombre('');
     setPropietarios('');
@@ -153,7 +183,7 @@ const Form = ({ pacientes, setPacientes }) => {
         }
         <input
           type="submit"
-          value="agregar paciente"
+          value={paciente.id ? 'editar paciente' : 'agregar paciente'}
           className=" w-full p-3 text-white uppercase font-bold mt-5  ease-out delay-150 bg-blue-600 hover:-translate-y-1 hover:scale-100 hover:bg-indigo-300 duration-300 rounded-md hover:rounded-xl transition-all cursor-pointer"
         />
       </form>
