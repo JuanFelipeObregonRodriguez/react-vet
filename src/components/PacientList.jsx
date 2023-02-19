@@ -2,7 +2,7 @@
 import React from 'react';
 import Paciente from './Paciente';
 
-function PacientList({ pacientes, setPaciente }) {
+function PacientList({ pacientes, setPaciente, eliminarPaciente }) {
   return (
     <div className="md:w-1/2 lg:w-2/5 h-screen overflow-scroll ml-14">
       { pacientes && pacientes.length ? (
@@ -17,7 +17,12 @@ function PacientList({ pacientes, setPaciente }) {
           </p>
           {
         pacientes.map((paciente) => (
-          <Paciente paciente={paciente} key={paciente.id} setPaciente={setPaciente} />
+          <Paciente
+            paciente={paciente}
+            key={paciente.id}
+            setPaciente={setPaciente}
+            eliminarPaciente={eliminarPaciente}
+          />
         ))
         }
         </>
