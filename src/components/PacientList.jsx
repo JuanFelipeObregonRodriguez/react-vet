@@ -4,7 +4,7 @@ import Paciente from './Paciente';
 
 function PacientList({ pacientes, setPaciente, eliminarPaciente }) {
   return (
-    <div className="md:w-1/2 lg:w-2/5 h-screen overflow-scroll ml-14">
+    <div className="md:w-1/2 lg:w-2/5 h-screen overflow-scroll ml-2">
       { pacientes && pacientes.length ? (
         <>
           <h2 className="font-black text-3xl text-center ">Lista de pacientes</h2>

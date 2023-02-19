@@ -25,9 +25,9 @@ const App = () => {
 
   return (
 
-    <div className="container mx-auto mt-20 bg-slate-50">
+    <div className="container mx-auto mt-20  justify-center bg-slate-50">
       <Header />
-      <div className="md:mt-12 md:flex ml-8">
+      <div className="md:mt-12 md:flex m-2">
         <Form setPacientes={setPacientes} pacientes={pacientes} paciente={paciente} setPaciente={setPaciente} />
         <PacientList pacientes={pacientes} setPaciente={setPaciente} eliminarPaciente={eliminarPaciente} />
       </div>
